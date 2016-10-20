@@ -55,6 +55,26 @@ def empty():
     return iter([])
 
 
+def single(val):
+    """ Creates an iterator with a single value.
+
+    Args:
+
+        val(any):               Single value to add to the iterator.
+
+    Returns:
+
+        iterable:               An iterable yielding the single value.
+
+    Examples:
+
+        >>> list(single(1))
+        [1]
+    """
+
+    yield val
+
+
 def cycles(seq, n=1):
     """ Cycles through the sequence n-times.
 
