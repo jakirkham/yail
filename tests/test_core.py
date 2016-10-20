@@ -15,6 +15,7 @@ from yail import core
 from yail.core import (
     generator,
     empty,
+    single,
     cycles,
     duplicate,
     indices,
@@ -46,6 +47,17 @@ class TestYail(unittest.TestCase):
 
         with self.assertRaises(StopIteration):
             next(empty())
+
+
+    def test_single(self):
+        assert list(single(1)) == [1]
+
+        assert list(single(None)) == [None]
+
+        it = single(2)
+        next(it)
+        with self.assertRaises(StopIteration):
+            next(it)
 
 
     def test_cycles(self):
