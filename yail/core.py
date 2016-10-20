@@ -4,20 +4,20 @@ __date__ = "$Oct 20, 2016 11:42$"
 
 import itertools
 
-import toolz.itertoolz
+import toolz.itertoolz   # noqa  # pylint: disable=W0611
 
 from toolz.itertoolz import (
-    accumulate,
+    accumulate,               # pylint: disable=W0611
     concat,
-    sliding_window,
-)
+    sliding_window,           # pylint: disable=W0611
+)  # noqa
 
 from toolz.compatibility import (
-    range,
-    map,
-    zip,
-    zip_longest,
-)
+    range,                         # noqa  # pylint: disable-msg=W0611,W0622
+    map,                           # noqa  # pylint: disable-msg=W0611,W0622
+    zip,                           # noqa  # pylint: disable-msg=W0611,W0622
+    zip_longest,                   # noqa  # pylint: disable-msg=W0611,W0622
+)  # noqa
 
 
 def generator(it):
