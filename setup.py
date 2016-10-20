@@ -13,7 +13,7 @@ with open("HISTORY.rst") as history_file:
     history = history_file.read()
 
 requirements = [
-    # TODO: put package requirements here
+    "toolz>=0.8.0",
 ]
 
 test_requirements = [
