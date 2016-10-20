@@ -7,6 +7,7 @@ import itertools
 import toolz.itertoolz
 
 from toolz.itertoolz import (
+    accumulate,
     concat,
 )
 
