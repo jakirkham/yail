@@ -18,6 +18,30 @@ from toolz.compatibility import (
 )
 
 
+def generator(it):
+    """ Creates a generator type from the iterable.
+
+    Args:
+
+        it(iterable):            An iterable to make a generator.
+
+    Returns:
+
+        generator:               A generator made from the iterable.
+
+    Examples:
+
+        >>> generator(range(5))  # doctest: +ELLIPSIS
+        <generator object generator at 0x...>
+
+        >>> list(generator(range(5)))
+        [0, 1, 2, 3, 4]
+    """
+
+    for each in it:
+        yield each
+
+
 def empty():
     """ Creates an empty iterator.
 
