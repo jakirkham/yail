@@ -34,14 +34,13 @@ def generator(it):
     Examples:
 
         >>> generator(range(5))  # doctest: +ELLIPSIS
-        <generator object generator at 0x...>
+        <generator object ...<genexpr> at 0x...>
 
         >>> list(generator(range(5)))
         [0, 1, 2, 3, 4]
     """
 
-    for each in it:
-        yield each
+    return (each for each in it)
 
 
 def empty():
