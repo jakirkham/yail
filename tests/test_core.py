@@ -17,6 +17,7 @@ from yail.core import (
     empty,
     cycles,
     duplicate,
+    indices,
     pad,
 )
 
@@ -75,6 +76,21 @@ class TestYail(unittest.TestCase):
         assert list(duplicate([1, 2, 3])) == [1, 2, 3]
         assert list(duplicate([1, 2, 3], 2)) == [1, 1, 2, 2, 3, 3]
         assert list(duplicate([1, 2, 3], 3)) == [1, 1, 1, 2, 2, 2, 3, 3, 3]
+
+
+    def test_indices(self):
+        assert list(indices(0)) == []
+        assert list(indices(0, 2)) == []
+        assert list(indices(2, 0)) == []
+
+        assert list(indices(2, 1)) == [(0, 0), (1, 0)]
+        assert list(indices(1, 2)) == [(0, 0), (0, 1)]
+        assert list(indices(2, 3)) == [(0, 0),
+                                       (0, 1),
+                                       (0, 2),
+                                       (1, 0),
+                                       (1, 1),
+                                       (1, 2)]
 
 
     def test_pad(self):

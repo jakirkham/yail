@@ -115,6 +115,28 @@ def duplicate(seq, n=1):
     return concat(map(lambda _: itertools.repeat(_, n), seq))
 
 
+def indices(*sizes):
+    """ Iterates over a length/shape.
+
+        Takes a size or sizes (unpacked shape) and iterates through all
+        combinations of the indices.
+
+        Args:
+            *sizes(int):            list of sizes to iterate over.
+
+        Returns:
+            iterable:               an iterator over the sizes.
+
+
+        Examples:
+
+            >>> list(indices(3, 2))
+            [(0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1)]
+    """
+
+    return(itertools.product(*[range(_) for _ in sizes]))
+
+
 def pad(seq, before=0, after=0, fill=None):
     """ Pads a sequence by a fill value before and/or after.
 
