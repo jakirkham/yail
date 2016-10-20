@@ -9,6 +9,7 @@ import toolz.itertoolz
 from toolz.itertoolz import (
     accumulate,
     concat,
+    sliding_window,
 )
 
 from toolz.compatibility import (
