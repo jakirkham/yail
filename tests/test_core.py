@@ -7,11 +7,13 @@ __date__ = "$Oct 20, 2016 11:43$"
 import doctest
 import itertools
 import sys
+import types
 import unittest
 
 from yail import core
 
 from yail.core import (
+    generator,
     empty,
     cycles,
     duplicate,
@@ -28,6 +30,14 @@ def load_tests(loader, tests, ignore):
 class TestYail(unittest.TestCase):
     def setUp(self):
         pass
+
+
+    def test_generator(self):
+        assert list(generator(range(5))) == [0, 1, 2, 3, 4]
+
+        assert isinstance(generator(range(5)), types.GeneratorType)
+        assert issubclass(type(generator(range(5))), types.GeneratorType)
+        assert type(generator(range(5))) is types.GeneratorType
 
 
     def test_empty(self):
