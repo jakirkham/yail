@@ -18,6 +18,7 @@ from yail.core import (
     single,
     cycles,
     duplicate,
+    split,
     indices,
     pad,
     sliding_window_filled,
@@ -97,6 +98,37 @@ class TestYail(unittest.TestCase):
         assert list(duplicate([1, 2, 3], 2)) == [1, 1, 2, 2, 3, 3]
         assert list(duplicate([1, 2, 3], 3)) == [1, 1, 1, 2, 2, 2, 3, 3, 3]
 
+
+    def test_split(self):
+        l = []
+        assert list(map(tuple, split(0, l))) == [tuple(),
+                                                 tuple(),
+                                                 tuple()]
+
+        l = [10, 20, 30, 40, 50]
+        assert list(map(tuple, split(0, l))) == [tuple(),
+                                                 (10,),
+                                                 (20, 30, 40, 50)]
+
+        l = [10, 20, 30, 40, 50]
+        assert list(map(tuple, split(4, l))) == [(10, 20, 30, 40,),
+                                                 (50,),
+                                                 tuple()]
+
+        l = [10, 20, 30, 40, 50]
+        assert list(map(tuple, split(5, l))) == [(10, 20, 30, 40, 50),
+                                                 tuple(),
+                                                 tuple()]
+
+        l = [10, 20, 30, 40, 50]
+        assert list(map(tuple, split(2, l))) == [(10, 20),
+                                                 (30,),
+                                                 (40, 50)]
+
+        l = range(10, 60, 10)
+        assert list(map(tuple, split(2, l))) == [(10, 20),
+                                                 (30,),
+                                                 (40, 50)]
 
     def test_indices(self):
         assert list(indices(0)) == []
