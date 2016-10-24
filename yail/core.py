@@ -3,12 +3,16 @@ __date__ = "$Oct 20, 2016 11:42$"
 
 
 import itertools
+import math
 
 import toolz.itertoolz
 
 from toolz.itertoolz import (
     accumulate,
     concat,
+    count,
+    first,
+    peek,
     sliding_window,
 )
 
@@ -347,3 +351,70 @@ def subrange(start, stop=None, step=None, substep=None):
 
     for i, j in sliding_window(2, range_ends):
         yield(range(i, j, substep))
+
+
+def disperse(seq):
+    """
+        Similar to range except that it recursively proceeds through the given
+        range in such a way that values that follow each other are preferably
+        not only non-sequential, but fairly different. This does not always
+        work with small ranges, but works nicely with large ranges.
+
+        Args:
+            a(int):              the lower bound of the range
+            b(int):              the upper bound of the range
+
+        Returns:
+            result(generator):   a generator that can be used to iterate
+                                 through the sequence.
+
+        Examples:
+
+            >>> list(disperse(range(10)))
+            [0, 5, 8, 3, 9, 4, 6, 1, 7, 2]
+    """
+
+    try:
+        len_seq = len(seq)
+    except TypeError:
+        seq, len_seq = itertools.tee(seq)
+        len_seq = count(len_seq)
+
+    def disperse_helper(b, part_seq_1):
+        if b != 0:
+            half_diff = float(b) / 2.0
+
+            mid_1 = int(math.floor(half_diff))
+            mid_2 = int(math.ceil(half_diff))
+
+            if 0 < mid_1 and b > mid_2:
+                part_seq_1, part_seq_2 = itertools.tee(part_seq_1)
+
+                front_mid_1_seq, mid_1_val, _ = split(mid_1, part_seq_1)
+                _, mid_2_val, back_mid_2_seq = split(mid_2, part_seq_2)
+                del _
+
+                mid_2_val = itertools.tee(mid_2_val)
+                back_mid_2_seq = concat([mid_2_val[0], back_mid_2_seq])
+                mid_2_val = mid_2_val[1]
+
+                yield(first(mid_2_val))
+
+                for _1, _2 in zip(
+                        disperse_helper(mid_1 - 0, front_mid_1_seq),
+                        disperse_helper(b - mid_2, back_mid_2_seq)
+                ):
+                    yield(_2)
+                    yield(_1)
+
+                if mid_1 != mid_2:
+                    yield(first(mid_1_val))
+
+    if len_seq == 0:
+        return
+
+    val, seq = peek(seq)
+    yield(val)
+
+    for each in disperse_helper(len_seq, seq):
+        yield(each)
