@@ -266,3 +266,44 @@ def sliding_window_filled(seq,
         )
 
     return(sliding_window(n, seq))
+
+
+def subrange(start, stop=None, step=None, substep=None):
+    """
+        Generates start and stop values for each subrange.
+
+        Args:
+            start(int):           First value in range (or last if only
+                                  specified value)
+
+            stop(int):            Last value in range
+
+            step(int):            Step between each range
+
+            substep(int):         Step within each range
+
+        Yields:
+            range:             A subrange within the larger range.
+
+        Examples:
+            >>> list(map(list, subrange(5)))
+            [[0], [1], [2], [3], [4]]
+
+            >>> list(map(list, subrange(0, 12, 3, 2)))
+            [[0, 2], [3, 5], [6, 8], [9, 11]]
+    """
+
+    if stop is None:
+        stop = start
+        start = 0
+
+    if step is None:
+        step = 1
+
+    if substep is None:
+        substep = 1
+
+    range_ends = itertools.chain(range(start, stop, step), [stop])
+
+    for i, j in sliding_window(2, range_ends):
+        yield(range(i, j, substep))

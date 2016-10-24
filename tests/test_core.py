@@ -21,6 +21,7 @@ from yail.core import (
     indices,
     pad,
     sliding_window_filled,
+    subrange,
 )
 
 
@@ -181,6 +182,25 @@ class TestYail(unittest.TestCase):
                        (2, 3, 4),
                        (3, 4, None),
                        (4, None, None)]
+
+
+    def test_subrange(self):
+        assert list(map(list, subrange(5))) == [[0], [1], [2], [3], [4]]
+        assert list(map(list, subrange(0, 5))) == [[0], [1], [2], [3], [4]]
+        assert list(map(list, subrange(1, 5))) == [[1], [2], [3], [4]]
+
+        assert list(map(list, subrange(0, 10, 3))) == [[0, 1, 2],
+                                                       [3, 4, 5],
+                                                       [6, 7, 8],
+                                                       [9]]
+
+        assert list(map(list, subrange(0, 7, 3))) == [[0, 1, 2],
+                                                      [3, 4, 5],
+                                                      [6]]
+
+        assert list(map(list, subrange(0, 7, 3, 2))) == [[0, 2],
+                                                         [3, 5],
+                                                         [6]]
 
 
     def tearDown(self):
