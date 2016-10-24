@@ -20,6 +20,7 @@ from yail.core import (
     duplicate,
     indices,
     pad,
+    sliding_window_filled,
 )
 
 
@@ -125,6 +126,61 @@ class TestYail(unittest.TestCase):
         assert list(zip(range(3), padded)) == [(0, None),
                                                (1, None),
                                                (2, None)]
+
+
+    def test_sliding_window_filled(self):
+        assert list(sliding_window_filled(range(5), 1)) == [(0,),
+                                                            (1,),
+                                                            (2,),
+                                                            (3,),
+                                                            (4,)]
+
+        assert list(sliding_window_filled(range(5), 2)) == [(0, 1,),
+                                                            (1, 2,),
+                                                            (2, 3,),
+                                                            (3, 4,)]
+
+        assert list(sliding_window_filled(range(5), 3)) == [(0, 1, 2,),
+                                                            (1, 2, 3,),
+                                                            (2, 3, 4,)]
+
+        seq = list(sliding_window_filled(range(5), 1, pad_before=True, pad_after=True))
+        assert seq == [(0,),
+                       (1,),
+                       (2,),
+                       (3,),
+                       (4,)]
+
+        seq = list(sliding_window_filled(range(5), 2, pad_before=False, pad_after=True))
+        assert seq == [(0, 1,),
+                       (1, 2,),
+                       (2, 3,),
+                       (3, 4,),
+                       (4, None,)]
+
+        seq = list(sliding_window_filled(range(5), 2, pad_before=True, pad_after=False))
+        assert seq == [(None, 0,),
+                       (0, 1,),
+                       (1, 2,),
+                       (2, 3,),
+                       (3, 4,)]
+
+        seq = list(sliding_window_filled(range(5), 2, pad_before=True, pad_after=True))
+        assert seq == [(None, 0,),
+                       (0, 1,),
+                       (1, 2,),
+                       (2, 3,),
+                       (3, 4,),
+                       (4, None,)]
+
+        seq = list(sliding_window_filled(range(5), 3, pad_before=True, pad_after=True))
+        assert seq == [(None, None, 0),
+                       (None, 0, 1),
+                       (0, 1, 2),
+                       (1, 2, 3),
+                       (2, 3, 4),
+                       (3, 4, None),
+                       (4, None, None)]
 
 
     def tearDown(self):
