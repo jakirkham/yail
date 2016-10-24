@@ -204,3 +204,65 @@ def pad(seq, before=0, after=0, fill=None):
         all_seqs.append(itertools.repeat(fill, after))
 
     return concat(all_seqs)
+
+
+def sliding_window_filled(seq,
+                          n,
+                          pad_before=False,
+                          pad_after=False,
+                          fillvalue=None):
+    """ A sliding window with optional padding on either end..
+
+        Args:
+            seq(iter):                 an iterator or something that can
+                                            be turned into an iterator
+
+            n(int):                         number of generators to create as
+                                            lagged
+
+            pad_before(bool):               whether to continue zipping along
+                                            the longest generator
+
+            pad_after(bool):               whether to continue zipping along
+                                            the longest generator
+
+            fillvalue:                      value to use to fill generators
+                                            shorter than the longest.
+
+        Returns:
+            generator object:               a generator object that will return
+                                            values from each iterator.
+
+        Examples:
+
+            >>> list(sliding_window_filled(range(5), 2))
+            [(0, 1), (1, 2), (2, 3), (3, 4)]
+
+            >>> list(sliding_window_filled(range(5), 2, pad_after=True))
+            [(0, 1), (1, 2), (2, 3), (3, 4), (4, None)]
+
+            >>> list(sliding_window_filled(range(5), 2, pad_before=True, pad_after=True))
+            [(None, 0), (0, 1), (1, 2), (2, 3), (3, 4), (4, None)]
+    """
+
+    if pad_before and pad_after:
+        seq = pad(
+            seq,
+            before=(n - 1),
+            after=(n - 1),
+            fill=fillvalue
+        )
+    elif pad_before:
+        seq = pad(
+            seq,
+            before=(n - 1),
+            fill=fillvalue
+        )
+    elif pad_after:
+        seq = pad(
+            seq,
+            after=(n - 1),
+            fill=fillvalue
+        )
+
+    return(sliding_window(n, seq))
