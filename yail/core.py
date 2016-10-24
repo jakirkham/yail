@@ -140,6 +140,43 @@ def duplicate(seq, n=1):
     return concat(map(lambda _: itertools.repeat(_, n), seq))
 
 
+def split(n, seq):
+    """ Splits the sequence around element n.
+
+    Provides 3 ``iterable``s in return.
+
+    1. Everything before the ``n``-th value.
+    2. An ``iterable`` with just the ``n``-th value.
+    3. Everything after the ``n``-th value.
+
+    Args:
+
+         n(integral):                   Index to split the iterable at.
+         seq(iterable):                 The sequence to split.
+
+    Returns:
+
+         ``tuple`` of ``iterable``s:    Each portion of the iterable
+                                        around the index.
+
+    Examples:
+
+         >>> list(map(tuple, split(2, range(5))))
+         [(0, 1), (2,), (3, 4)]
+
+         >>> list(map(tuple, split(2, [10, 20, 30, 40, 50])))
+         [(10, 20), (30,), (40, 50)]
+    """
+
+    front, middle, back = itertools.tee(seq, 3)
+
+    front = itertools.islice(front, 0, n)
+    middle = itertools.islice(middle, n, n + 1)
+    back = itertools.islice(back, n + 1, None)
+
+    return front, middle, back
+
+
 def indices(*sizes):
     """ Iterates over a length/shape.
 
