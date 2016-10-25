@@ -13,6 +13,7 @@ with open("HISTORY.rst") as history_file:
     history = history_file.read()
 
 requirements = [
+    "future>=0.15.2",
     "toolz>=0.8.0",
 ]
 

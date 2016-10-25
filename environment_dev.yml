@@ -12,4 +12,6 @@ dependencies:
   - Sphinx==1.4.5
   - cryptography==1.4
   - pyyaml==3.11
+
   - toolz==0.8.0
+  - future==0.15.2
