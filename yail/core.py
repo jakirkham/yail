@@ -12,10 +12,13 @@ from toolz.itertoolz import (
     sliding_window,
 )
 
-from toolz.compatibility import (
+from builtins import (
     range,
     map,
     zip,
+)
+
+from future.moves.itertools import (
     zip_longest,
 )
 
