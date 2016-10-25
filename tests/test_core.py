@@ -24,6 +24,12 @@ from yail.core import (
     subrange,
 )
 
+from builtins import (
+    map,
+    range,
+    zip,
+)
+
 
 # Load doctests from `types`.
 def load_tests(loader, tests, ignore):
