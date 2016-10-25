@@ -23,6 +23,7 @@ from yail.core import (
     pad,
     sliding_window_filled,
     subrange,
+    disperse,
 )
 
 from builtins import (
@@ -239,6 +240,25 @@ class TestYail(unittest.TestCase):
         assert list(map(list, subrange(0, 7, 3, 2))) == [[0, 2],
                                                          [3, 5],
                                                          [6]]
+
+
+    def test_disperse(self):
+        assert list(disperse(iter(range(0)))) == []
+
+        assert list(disperse(range(0, 0))) == []
+        assert list(disperse(range(5, 5))) == []
+        assert list(disperse(range(5, 0))) == []
+
+        assert list(disperse(range(1))) == [0]
+        assert list(disperse(range(2))) == [0, 1]
+        assert list(disperse(range(3))) == [0, 2, 1]
+
+        assert list(disperse(range(10))) == [0, 5, 8, 3, 9, 4, 6, 1, 7, 2]
+        assert list(disperse(range(20))) == [0, 10, 15, 5, 18, 8, 13, 3,
+                                             19, 9, 14, 4, 16, 6, 11, 1,
+                                             17, 7, 12, 2]
+
+        assert list(disperse(range(0, 10, 2))) == [0, 6, 8, 2, 4]
 
 
     def tearDown(self):
