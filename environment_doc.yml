@@ -1,0 +1,12 @@
+name: yail_env
+
+channels:
+  - conda-forge
+
+dependencies:
+  - pip==9.0.1
+  - wheel==0.29.0
+  - Sphinx==1.5.1
+
+  - toolz==0.8.0
+  - future==0.15.2
