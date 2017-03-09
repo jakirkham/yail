@@ -5,13 +5,19 @@ yail
 
 .. image:: https://img.shields.io/pypi/v/yail.svg
         :target: https://pypi.python.org/pypi/yail
+        :alt: PyPI
 
-.. image:: https://img.shields.io/travis/jakirkham/yail.svg
+.. image:: https://anaconda.org/conda-forge/yail/badges/version.svg
+        :target: https://anaconda.org/conda-forge/yail
+        :alt: conda-forge
+
+.. image:: https://img.shields.io/travis/jakirkham/yail/master.svg
         :target: https://travis-ci.org/jakirkham/yail
+        :alt: Travis CI
 
 .. image:: https://readthedocs.org/projects/yail/badge/?version=latest
         :target: https://yail.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+        :alt: Read the Docs
 
 .. image:: https://coveralls.io/repos/github/jakirkham/yail/badge.svg
         :target: https://coveralls.io/github/jakirkham/yail
