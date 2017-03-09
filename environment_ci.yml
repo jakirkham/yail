@@ -10,4 +10,4 @@ dependencies:
   - python-coveralls==2.5.0
 
   - toolz==0.8.0
-  - future==0.15.2
+  - future==0.16.0
