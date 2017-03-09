@@ -9,5 +9,5 @@ dependencies:
   - coverage==3.7.1
   - python-coveralls==2.5.0
 
-  - toolz==0.8.0
+  - toolz==0.8.2
   - future==0.16.0

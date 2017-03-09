@@ -8,5 +8,5 @@ dependencies:
   - wheel==0.29.0
   - Sphinx==1.5.1
 
-  - toolz==0.8.0
+  - toolz==0.8.2
   - future==0.16.0
